@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瑪黑區周邊景點 | Le Marais Surroundings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), #2980b9);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        
+        .navbar {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .navbar i {
+            margin-right: 8px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-header {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .section-header i {
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .spot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .spot-card {
+            background: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .spot-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .spot-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .spot-content {
+            padding: 1.5rem;
+        }
+        
+        .spot-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .spot-content p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+        
+        .spot-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .spot-meta i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        .category-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .spot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .toggle-btn {
+            position: fixed;
+            z-index: 1000;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        #leftToggle {
+            top: 1rem;
+            left: 1rem;
+        }
+        
+        #rightToggle {
+            bottom: 1rem;
+            right: 1rem;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .filter-bar {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: var(--light-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--dark-color);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <button id="leftToggle" class="toggle-btn" onclick="toggleNav()">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <button id="rightToggle" class="toggle-btn" onclick="toggleFooter()">
+        <i class="fas fa-info"></i>
+    </button>
+
+    <header>
+        <h1><i class="fas fa-compass"></i> 瑪黑區周邊景點</h1>
+        <p>探索巴黎第1區、第2區和羅浮宮周邊的精彩景點</p>
+    </header>
+    
+    <div id="navbar" class="navbar">
+        <a href="index.html"><i class="fas fa-home"></i> 返回首頁</a>
+        <a href="map.html"><i class="fas fa-map"></i> 查看互動地圖</a>
+    </div>
+    
+    <main>
+        <div class="filter-bar">
+            <button class="filter-btn active" data-area="all">全部景點</button>
+            <button class="filter-btn" data-area="district1">第1區</button>
+            <button class="filter-btn" data-area="district2">第2區</button>
+            <button class="filter-btn" data-area="louvre">羅浮宮周邊</button>
+        </div>
+
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-landmark"></i>
+                <h2>第1區精選景點</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot-grid">
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Le_Centre_Georges_Pompidou.jpg/1280px-Le_Centre_Georges_Pompidou.jpg')">
+                            <span class="category-tag"><i class="fas fa-palette"></i> 博物館</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>龐畢度中心</h3>
+                            <p>巴黎最具標誌性的現代建築之一，內部收藏豐富的現代藝術作品。建築本身的「內外翻轉」設計已成為現代建築的經典。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 週三至週一 11:00-21:00</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Place Georges-Pompidou</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Les_Halles_Paris_FRA_001.JPG/1280px-Les_Halles_Paris_FRA_001.JPG')">
+                            <span class="category-tag"><i class="fas fa-shopping-bag"></i> 購物</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>Les Halles 購物中心</h3>
+                            <p>巴黎最大的地下商場之一，集合購物、美食和文化設施。現代化的建築設計與周邊歷史建築形成鮮明對比。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 10:00-20:00</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Forum des Halles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-city"></i>
+                <h2>第2區精選景點</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot-grid">
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Rue_Montorgueil_Paris_FRA_001.JPG/1280px-Rue_Montorgueil_Paris_FRA_001.JPG')">
+                            <span class="category-tag"><i class="fas fa-utensils"></i> 美食街</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>蒙托吉伊街</h3>
+                            <p>巴黎最著名的美食街之一，擁有眾多餐廳、咖啡館和美食商店。這裡保留了19世紀巴黎的市集氛圍。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 商店時間各異</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Rue Montorgueil</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Palais_Brongniart.jpg/1280px-Palais_Brongniart.jpg')">
+                            <span class="category-tag"><i class="fas fa-landmark"></i> 歷史建築</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>證券交易所</h3>
+                            <p>新古典主義建築的代表作，現為國家圖書館分館。這座宏偉的建築見證了巴黎金融區的發展歷史。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 需預約參觀</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Place de la Bourse</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-utensils"></i>
+                <h2>美食推薦</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot-grid">
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Au_Pied_de_Cochon%2C_Paris_6_August_2015.jpg/1280px-Au_Pied_de_Cochon%2C_Paris_6_August_2015.jpg')">
+                            <span class="category-tag"><i class="fas fa-utensils"></i> 餐廳</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>Au Pied de Cochon</h3>
+                            <p>24小時營業的傳統法式餐廳，以豬腳料理聞名。餐廳內部保留了典型的巴黎餐廳裝潢風格。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 24小時營業</span>
+                                <span><i class="fas fa-map-marker-alt"></i> 6 Rue Coquillière</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Stohrer_Paris.jpg/1280px-Stohrer_Paris.jpg')">
+                            <span class="category-tag"><i class="fas fa-bread-slice"></i> 甜點</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>Stohrer 糕點店</h3>
+                            <p>巴黎最古老的糕點店之一，創立於1730年。店內裝潢華麗，每一件糕點都是藝術品。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 週二至週日 7:30-20:00</span>
+                                <span><i class="fas fa-map-marker-alt"></i> 51 Rue Montorgueil</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" data-area="louvre">
+            <div class="section-header">
+                <i class="fas fa-crown"></i>
+                <h2>羅浮宮周邊景點</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot-grid">
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/1280px-Louvre_Museum_Wikimedia_Commons.jpg')">
+                            <span class="category-tag"><i class="fas fa-crown"></i> 博物館</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>羅浮宮</h3>
+                            <p>世界最大的藝術博物館，收藏超過38萬件藝術品。從古埃及文物到文藝復興時期的傑作，包括著名的蒙娜麗莎。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 週三至週一 9:00-18:00</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Rue de Rivoli</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="spot-card">
+                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Jardin_des_Tuileries_-_North-west_from_Grand_Bassin_Rond.jpg/1280px-Jardin_des_Tuileries_-_North-west_from_Grand_Bassin_Rond.jpg')">
+                            <span class="category-tag"><i class="fas fa-tree"></i> 公園</span>
+                        </div>
+                        <div class="spot-content">
+                            <h3>杜樂麗花園</h3>
+                            <p>位於羅浮宮和協和廣場之間的法式花園，是巴黎最古老的公園之一。園內有噴泉、雕塑和咖啡館，是休憩的理想場所。</p>
+                            <div class="spot-meta">
+                                <span><i class="fas fa-clock"></i> 7:30-19:30 (冬季) / 7:30-23:00 (夏季)</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Place de la Concorde</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer">
+        <p>© 2024 巴黎瑪黑區導覽 | 資料更新時間：2024/03/28</p>
+        <p><i class="fas fa-code"></i> 使用 HTML 和 CSS 打造</p>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            document.getElementById('navbar').classList.toggle('hidden');
+        }
+        
+        function toggleFooter() {
+            document.getElementById('footer').classList.toggle('hidden');
+        }
+        
+        // 區域篩選功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 更新按鈕狀態
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const selectedArea = btn.dataset.area;
+                
+                // 顯示/隱藏對應區域的景點
+                document.querySelectorAll('.section').forEach(section => {
+                    if (selectedArea === 'all' || section.dataset.area === selectedArea) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

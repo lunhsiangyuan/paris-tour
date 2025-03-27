@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瑪黑區周邊景點導覽 | Le Marais Surroundings Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), #2980b9);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        
+        .navbar {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .navbar i {
+            margin-right: 8px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-header {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .section-header i {
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .section-content h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-content h3:first-child {
+            margin-top: 0;
+        }
+        
+        .spot {
+            background: var(--light-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .spot:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .spot h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .spot h4 i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .spot ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+        
+        .spot li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .spot li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+        
+        .info-card {
+            background: white;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .info-item {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .info-item:hover {
+            background: #e3e3e3;
+            transform: translateY(-3px);
+        }
+        
+        .info-item h4 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-item h4 i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        .action-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .action-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-button i {
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-compass"></i> 瑪黑區周邊景點導覽</h1>
+        <p>Le Marais Surroundings Guide</p>
+    </header>
+    
+    <div class="navbar">
+        <a href="index.html"><i class="fas fa-home"></i> 返回首頁</a>
+        <a href="map.html"><i class="fas fa-map-marked-alt"></i> 查看互動地圖</a>
+        <a href="spots.html"><i class="fas fa-landmark"></i> 景點詳情</a>
+    </div>
+    
+    <main>
+        <div class="action-buttons">
+            <a href="map.html" class="action-button"><i class="fas fa-map"></i> 互動地圖</a>
+            <a href="spots.html" class="action-button"><i class="fas fa-images"></i> 景點圖片</a>
+            <a href="#transport" class="action-button"><i class="fas fa-bus"></i> 交通資訊</a>
+            <a href="#food" class="action-button"><i class="fas fa-utensils"></i> 美食推薦</a>
+        </div>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-landmark"></i>
+                <h2>第1區景點</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot">
+                    <h4><i class="fas fa-palette"></i> 龐畢度中心 (Centre Pompidou)</h4>
+                    <ul>
+                        <li>現代藝術博物館</li>
+                        <li>獨特的建築設計</li>
+                        <li>頂樓餐廳視野絕佳</li>
+                        <li>開放時間：11:00-22:00（週二休館）</li>
+                        <li>門票：€14（18-25歲€11）</li>
+                    </ul>
+                </div>
+                
+                <div class="spot">
+                    <h4><i class="fas fa-church"></i> 聖梅里教堂 (Église Saint-Merri)</h4>
+                    <ul>
+                        <li>哥德式建築</li>
+                        <li>免費參觀</li>
+                        <li>常有街頭藝人表演</li>
+                        <li>建議參觀時間：1小時</li>
+                    </ul>
+                </div>
+                
+                <div class="spot">
+                    <h4><i class="fas fa-monument"></i> 夏特雷廣場 (Place du Châtelet)</h4>
+                    <ul>
+                        <li>兩座歷史劇院</li>
+                        <li>噴泉景觀</li>
+                        <li>地鐵交通樞紐</li>
+                        <li>適合拍照</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-city"></i>
+                <h2>第2區景點</h2>
+            </div>
+            <div class="section-content">
+                <div class="spot">
+                    <h4><i class="fas fa-building"></i> 證券交易所 (Bourse)</h4>
+                    <ul>
+                        <li>新古典主義建築</li>
+                        <li>現為國家圖書館</li>
+                        <li>華麗的內部裝飾</li>
+                        <li>需預約參觀</li>
+                    </ul>
+                </div>
+                
+                <div class="spot">
+                    <h4><i class="fas fa-store"></i> 蒙托吉伊街 (Rue Montorgueil)</h4>
+                    <ul>
+                        <li>美食街</li>
+                        <li>傳統市集</li>
+                        <li>咖啡館林立</li>
+                        <li>最佳時間：早上9-11點</li>
+                    </ul>
+                </div>
+                
+                <div class="spot">
+                    <h4><i class="fas fa-shopping-bag"></i> 巴黎大商場 (Les Halles)</h4>
+                    <ul>
+                        <li>現代購物中心</li>
+                        <li>地下美食街</li>
+                        <li>交通便利</li>
+                        <li>全天候購物場所</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="food" class="section">
+            <div class="section-header">
+                <i class="fas fa-utensils"></i>
+                <h2>美食推薦</h2>
+            </div>
+            <div class="section-content">
+                <h3><i class="fas fa-concierge-bell"></i> 餐廳</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-hamburger"></i> Au Pied de Cochon</h4>
+                        <ul>
+                            <li>24小時營業</li>
+                            <li>法式傳統料理</li>
+                            <li>招牌：豬腳料理</li>
+                            <li>建議預約</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-star"></i> Frenchie</h4>
+                        <ul>
+                            <li>米其林一星</li>
+                            <li>現代法式料理</li>
+                            <li>需提前一個月預約</li>
+                            <li>午餐較易訂位</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3><i class="fas fa-coffee"></i> 咖啡館</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-bread-slice"></i> Le Pain Quotidien</h4>
+                        <ul>
+                            <li>有機麵包</li>
+                            <li>早午餐推薦</li>
+                            <li>戶外座位</li>
+                            <li>價格親民</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="transport" class="section">
+            <div class="section-header">
+                <i class="fas fa-bus"></i>
+                <h2>交通資訊</h2>
+            </div>
+            <div class="section-content">
+                <h3><i class="fas fa-subway"></i> 地鐵站</h3>
+                <ul>
+                    <li>Châtelet-Les Halles（1、4、7、11、14號線）</li>
+                    <li>Étienne Marcel（4號線）</li>
+                    <li>Bourse（3號線）</li>
+                </ul>
+                
+                <h3><i class="fas fa-bus"></i> 公車路線</h3>
+                <ul>
+                    <li>29號線</li>
+                    <li>38號線</li>
+                    <li>47號線</li>
+                </ul>
+                
+                <h3><i class="fas fa-walking"></i> 步行路線建議</h3>
+                <ol>
+                    <li>瑪黑區 → 龐畢度中心（10分鐘）</li>
+                    <li>龐畢度中心 → 夏特雷廣場（15分鐘）</li>
+                    <li>夏特雷廣場 → 蒙托吉伊街（20分鐘）</li>
+                </ol>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>購物指南</h2>
+            </div>
+            <div class="section-content">
+                <h3><i class="fas fa-shopping-bag"></i> 大型商場</h3>
+                <ul>
+                    <li>Forum des Halles</li>
+                    <li>Galerie Lafayette（BHV分店）</li>
+                    <li>Printemps（分店）</li>
+                </ul>
+                
+                <h3><i class="fas fa-store"></i> 特色商店</h3>
+                <ul>
+                    <li>E. Dehillerin（廚具店）</li>
+                    <li>G. Detou（烘焙用品）</li>
+                    <li>Mora（烘焙模具）</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>實用資訊</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-map"></i> 觀光資訊中心</h4>
+                        <ul>
+                            <li>地址：Forum des Halles</li>
+                            <li>開放時間：10:00-19:00</li>
+                            <li>提供地圖和導覽手冊</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-toilet"></i> 公共設施</h4>
+                        <ul>
+                            <li>公共廁所位置</li>
+                            <li>自動提款機</li>
+                            <li>郵局</li>
+                            <li>警察局</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-phone"></i> 緊急聯絡</h4>
+                        <ul>
+                            <li>警察：17</li>
+                            <li>救護：15</li>
+                            <li>火警：18</li>
+                            <li>歐盟緊急：112</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>季節活動</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-seedling"></i> 春季</h4>
+                        <ul>
+                            <li>美食節</li>
+                            <li>復活節市集</li>
+                            <li>戶外音樂會</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-sun"></i> 夏季</h4>
+                        <ul>
+                            <li>巴黎沙灘</li>
+                            <li>露天電影</li>
+                            <li>街頭表演</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-leaf"></i> 秋季</h4>
+                        <ul>
+                            <li>美食週</li>
+                            <li>爵士音樂節</li>
+                            <li>藝術展覽</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h4><i class="fas fa-snowflake"></i> 冬季</h4>
+                        <ul>
+                            <li>聖誕市集</li>
+                            <li>新年煙火</li>
+                            <li>冬季特賣</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <i class="fas fa-camera"></i>
+                <h2>拍照建議</h2>
+            </div>
+            <div class="section-content">
+                <h3><i class="fas fa-image"></i> 最佳角度</h3>
+                <ol>
+                    <li>龐畢度中心外觀</li>
+                    <li>夏特雷噴泉</li>
+                    <li>蒙托吉伊街市集</li>
+                    <li>證券交易所前廣場</li>
+                </ol>
+                
+                <h3><i class="fas fa-clock"></i> 最佳時間</h3>
+                <ul>
+                    <li>早晨：人少好拍</li>
+                    <li>黃昏：光線柔美</li>
+                    <li>夜晚：燈光效果佳</li>
+                </ul>
+                
+                <div class="info-card">
+                    <h4><i class="fas fa-lightbulb"></i> 小貼士</h4>
+                    <p>瑪黑區及其周邊的景點相對集中，建議安排1-2天的時間深度遊覽。如果時間有限，可以沿著龐畢度中心→夏特雷廣場→蒙托吉伊街這條路線漫步，感受巴黎的多元風情。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2024 巴黎瑪黑區導覽 | 資料更新時間：2024/03/28</p>
+        <p><i class="fas fa-code"></i> 使用 HTML 和 CSS 打造</p>
+    </footer>
+</body>
+</html> 

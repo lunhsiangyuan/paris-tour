@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瑪黑區及周邊景點詳情 | Le Marais Spots Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), #2980b9);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        
+        .navbar {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .navbar i {
+            margin-right: 8px;
+        }
+        
+        .map-link {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .map-link:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .category-title {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .spots-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .spot-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .spot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .spot-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .spot-category {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .spot-category i {
+            margin-right: 5px;
+        }
+        
+        .spot-content {
+            padding: 1.5rem;
+        }
+        
+        .spot-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .spot-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .spot-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .spot-meta i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            font-family: 'Noto Sans TC', sans-serif;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn i {
+            margin-right: 5px;
+        }
+        
+        .filter-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .hide {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .spots-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-map-marked-alt"></i> 瑪黑區及周邊景點詳情</h1>
+        <p>深入了解巴黎最具魅力區域的精彩景點</p>
+    </header>
+    
+    <div class="navbar">
+        <a href="index.html"><i class="fas fa-home"></i> 返回首頁</a>
+        <a href="map.html" class="map-link"><i class="fas fa-map"></i> 查看互動地圖</a>
+    </div>
+    
+    <main>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all"><i class="fas fa-globe"></i> 全部景點</button>
+            <button class="filter-btn" data-filter="historic"><i class="fas fa-landmark"></i> 歷史建築</button>
+            <button class="filter-btn" data-filter="museum"><i class="fas fa-palette"></i> 博物館</button>
+            <button class="filter-btn" data-filter="shopping"><i class="fas fa-shopping-bag"></i> 購物</button>
+            <button class="filter-btn" data-filter="food"><i class="fas fa-utensils"></i> 美食</button>
+        </div>
+        
+        <h2 class="category-title"><i class="fas fa-landmark"></i> 瑪黑區核心景點</h2>
+        <div class="spots-container">
+            <div class="spot-card" data-category="historic">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Place_des_Vosges_140605_1.jpg/1920px-Place_des_Vosges_140605_1.jpg')">
+                    <span class="spot-category"><i class="fas fa-landmark"></i> 歷史建築</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Place des Vosges</h3>
+                    <p>瑪黑區最古老的廣場，建於1605年，是巴黎最美麗的廣場之一。這裡曾是貴族居住地，現在是重要的歷史古蹟，四周環繞著紅磚建築，中央有優美的噴泉和修剪整齊的花園。維克多·雨果故居博物館就位於廣場一角。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 全天開放</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Place des Vosges, 75004</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="museum">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Mus%C3%A9e_Carnavalet-Fa%C3%A7ade_sur_cour-20110515.jpg/1920px-Mus%C3%A9e_Carnavalet-Fa%C3%A7ade_sur_cour-20110515.jpg')">
+                    <span class="spot-category"><i class="fas fa-palette"></i> 博物館</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Musée Carnavalet</h3>
+                    <p>巴黎歷史博物館，展示巴黎從古至今的歷史文物。博物館位於兩座歷史建築中，收藏超過60萬件展品，包括繪畫、雕塑、家具等，完整呈現巴黎的發展歷程。2021年重新開放後，展示方式更加現代化。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週二至週日 10:00-18:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 23 Rue de Sévigné</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="historic">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Paris_-_H%C3%B4tel_de_Ville_at_night_01.jpg/1280px-Paris_-_H%C3%B4tel_de_Ville_at_night_01.jpg')">
+                    <span class="spot-category"><i class="fas fa-landmark"></i> 歷史建築</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Hôtel de Ville</h3>
+                    <p>巴黎市政廳，新文藝復興式建築的代表作。始建於1357年，現今建築完工於1892年。不僅是行政中心，也是重要的文化場所，經常舉辦展覽和文化活動。建築外觀裝飾華麗，正面有108座雕像。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 展覽：週一至週六 10:00-18:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Place de l'Hôtel de Ville</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="museum">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Mus%C3%A9e_Picasso%2C_H%C3%B4tel_Sal%C3%A9%2C_Paris_3e_140402.jpg/1920px-Mus%C3%A9e_Picasso%2C_H%C3%B4tel_Sal%C3%A9%2C_Paris_3e_140402.jpg')">
+                    <span class="spot-category"><i class="fas fa-palette"></i> 博物館</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Musée Picasso</h3>
+                    <p>畢卡索博物館，收藏著畢卡索大量作品。位於薩爾坦宮（Hôtel Salé）內，是17世紀建築的典範。館內收藏超過5000件畢卡索作品，包括繪畫、雕塑、素描和版畫，是世界最大的畢卡索作品收藏。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週二至週日 10:30-18:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 5 Rue de Thorigny</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="historic">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Archives_Nationales_-_Hotel_de_Soubise_2.jpg/1280px-Archives_Nationales_-_Hotel_de_Soubise_2.jpg')">
+                    <span class="spot-category"><i class="fas fa-landmark"></i> 歷史建築</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Archives Nationales</h3>
+                    <p>法國國家檔案館，位於蘇比茲宮內。建於18世紀，保存著法國重要的歷史檔案，從中世紀到現代的文件都有收藏。建築本身就是歷史遺產，其花園也對公眾開放。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週一至週六 9:00-16:45</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 60 Rue des Francs-Bourgeois</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="food">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rue_des_Rosiers%2C_Paris_August_2013.jpg/1280px-Rue_des_Rosiers%2C_Paris_August_2013.jpg')">
+                    <span class="spot-category"><i class="fas fa-utensils"></i> 美食</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Rue des Rosiers</h3>
+                    <p>玫瑰街，巴黎猶太區的中心，有許多猶太餐廳和商店。這條街保留著濃厚的猶太文化氛圍，著名的沙威瑪店L'As du Fallafel就在這裡。街道兩旁有許多時尚精品店，是體驗巴黎多元文化的最佳地點。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 商店時間各異</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Rue des Rosiers, 75004</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="category-title"><i class="fas fa-compass"></i> 瑪黑區周邊精選景點</h2>
+        <div class="spots-container">
+            <div class="spot-card" data-category="museum">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Le_Centre_Georges_Pompidou.jpg/1280px-Le_Centre_Georges_Pompidou.jpg')">
+                    <span class="spot-category"><i class="fas fa-palette"></i> 博物館</span>
+                </div>
+                <div class="spot-content">
+                    <h3>蓬皮杜中心 (Centre Pompidou)</h3>
+                    <p>巴黎最具標誌性的現代建築之一，於1977年開幕。這座「內外翻轉」的建築將所有結構和管道暴露在外部，創造出獨特的外觀。館內收藏歐洲最大的現代與當代藝術收藏，包括畢卡索、馬蒂斯和康定斯基等大師作品。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週三至週一 11:00-21:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Place Georges-Pompidou</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="historic">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Op%C3%A9ra_Bastille%2C_Paris_25_May_2014.jpg/1280px-Op%C3%A9ra_Bastille%2C_Paris_25_May_2014.jpg')">
+                    <span class="spot-category"><i class="fas fa-landmark"></i> 歷史建築</span>
+                </div>
+                <div class="spot-content">
+                    <h3>巴士底歌劇院 (Opéra Bastille)</h3>
+                    <p>為紀念法國大革命200週年而建，於1989年7月14日巴士底日開幕。這座現代化歌劇院可容納2700名觀眾，是巴黎國家歌劇院的主要表演場地。建築採用現代設計，與傳統的加尼葉歌劇院形成鮮明對比。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 依演出時間而定</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Place de la Bastille</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="historic">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Ile_Saint_Louis_Paris_Seine.jpg/1280px-Ile_Saint_Louis_Paris_Seine.jpg')">
+                    <span class="spot-category"><i class="fas fa-landmark"></i> 歷史建築</span>
+                </div>
+                <div class="spot-content">
+                    <h3>聖路易島 (Île Saint-Louis)</h3>
+                    <p>塞納河上的天然小島，是巴黎最優雅和保存最完好的歷史街區之一。這裡保留了17世紀的貴族宅邸和鵝卵石街道，著名的Berthillon冰淇淋店就在島上。漫步於此，可以欣賞到塞納河的美景和巴黎聖母院的側影。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 全天開放</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Île Saint-Louis, 75004</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="shopping">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/BHVMARAIS.jpg/1280px-BHVMARAIS.jpg')">
+                    <span class="spot-category"><i class="fas fa-shopping-bag"></i> 購物</span>
+                </div>
+                <div class="spot-content">
+                    <h3>BHV 百貨公司 (Le BHV Marais)</h3>
+                    <p>位於市政廳對面的百貨公司，是巴黎人最愛的購物場所之一。從時尚服飾到家居用品，應有盡有，尤其以其五金工具部門聞名。經過改造後，現在更專注於設計師品牌和時尚產品，成為瑪黑區重要的購物地標。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週一至週六 9:30-20:00，週日 11:00-19:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 52 Rue de Rivoli</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="food">
+                <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/March%C3%A9_des_Enfants_Rouges%2C_Paris_10_August_2013.jpg/1280px-March%C3%A9_des_Enfants_Rouges%2C_Paris_10_August_2013.jpg')">
+                    <span class="spot-category"><i class="fas fa-utensils"></i> 美食</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Marché des Enfants Rouges</h3>
+                    <p>巴黎最古老的有蓋市場，始建於1628年，名字來源於附近孤兒院的紅色制服。這裡融合了傳統市場和美食廣場的概念，提供從摩洛哥到日本等各國美食。週末尤其熱鬧，是品嚐國際美食的絕佳去處。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週二至週六 8:30-19:30，週日 8:30-14:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 39 Rue de Bretagne</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spot-card" data-category="shopping">
+                <div class="spot-img" style="background-image: url('https://www.merci-merci.com/wp-content/uploads/2019/04/merci-paris-concept-store-1100x550.jpg')">
+                    <span class="spot-category"><i class="fas fa-shopping-bag"></i> 購物</span>
+                </div>
+                <div class="spot-content">
+                    <h3>Merci Concept Store</h3>
+                    <p>時尚前衛的概念店，位於一座舊工廠中。出售家居用品、服裝和禮品，以其精緻的選品和獨特的陳列著稱。入口處標誌性的紅色老爺車是遊客拍照的熱門景點。店內還有三間咖啡館，提供輕食和飲品。</p>
+                    <div class="spot-meta">
+                        <span><i class="fas fa-clock"></i> 週一至週六 10:00-19:00，週日 11:00-19:00</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 111 Boulevard Beaumarchais</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2024 巴黎瑪黑區導覽 | 資料更新時間：2024/03/28</p>
+        <p><i class="fas fa-code"></i> 使用 HTML 和 CSS 打造</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const spotCards = document.querySelectorAll('.spot-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 更新按鈕狀態
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 篩選景點卡片
+                    spotCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.classList.remove('hide');
+                        } else {
+                            card.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
