@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>巴黎瑪黑區地圖 | Paris Le Marais Map</title>
+    <title>瑪黑區互動地圖 | Le Marais Interactive Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,7 +14,7 @@
             --accent-color: #e74c3c;
             --light-color: #ecf0f1;
             --dark-color: #34495e;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         * {
@@ -25,108 +25,45 @@
         
         body {
             font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
         
-        .menu-btn {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 50%;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s;
-        }
-        
-        .menu-btn:hover {
-            transform: scale(1.1);
-            background: var(--primary-color);
+        header {
+            background: linear-gradient(to right, var(--primary-color), #2980b9);
             color: white;
+            padding: 1rem;
+            text-align: center;
         }
         
-        .nav-popup {
-            position: fixed;
-            top: 1rem;
-            left: 4rem;
+        .filter-container {
             background: white;
             padding: 1rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .nav-popup.show {
-            display: block;
-        }
-        
-        .nav-popup a {
-            display: block;
-            color: var(--dark-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s;
-            margin-bottom: 0.5rem;
-        }
-        
-        .nav-popup a:hover {
-            background: var(--light-color);
-            transform: translateX(5px);
-        }
-        
-        .nav-popup i {
-            margin-right: 8px;
-            color: var(--primary-color);
-        }
-        
-        .filter-bar {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: var(--shadow);
         }
         
         .filter-btn {
             background: var(--light-color);
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
-            color: var(--dark-color);
-            width: 100%;
-            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .filter-btn i {
-            margin-right: 8px;
-            color: var(--primary-color);
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
         }
         
         .filter-btn.active {
@@ -134,302 +71,74 @@
             color: white;
         }
         
-        .filter-btn.active i {
-            color: white;
-        }
-        
-        .filter-btn:hover {
-            transform: translateX(5px);
-        }
-        
         #map {
             flex-grow: 1;
+            width: 100%;
             z-index: 1;
         }
         
-        .map-popup {
-            font-family: 'Noto Sans TC', sans-serif;
+        .popup-content {
+            padding: 0.5rem;
         }
         
-        .map-popup h3 {
+        .popup-content h3 {
             color: var(--secondary-color);
             margin-bottom: 0.5rem;
-            font-size: 1.2rem;
         }
         
-        .map-popup p {
+        .popup-content p {
+            margin: 0.3rem 0;
             color: #666;
-            margin-bottom: 0.5rem;
         }
         
-        .map-popup .meta {
-            color: #999;
-            font-size: 0.9rem;
+        .popup-content i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        .legend {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+        }
+        
+        .legend h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .legend div {
+            margin: 0.3rem 0;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 0.5rem;
-        }
-        
-        .map-popup .meta i {
-            color: var(--primary-color);
-            width: 20px;
-        }
-        
-        .map-popup .category {
-            display: inline-block;
-            padding: 0.2rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            background: var(--light-color);
-            color: var(--primary-color);
         }
     </style>
 </head>
 <body>
-    <button class="menu-btn" onclick="toggleNav()">
-        <i class="fas fa-bars"></i>
-    </button>
+    <header>
+        <h1><i class="fas fa-map-marked-alt"></i> 瑪黑區互動地圖</h1>
+    </header>
     
-    <div class="nav-popup" id="navPopup">
-        <a href="index.html"><i class="fas fa-home"></i> 返回首頁</a>
-        <a href="marais.html"><i class="fas fa-landmark"></i> 瑪黑區景點</a>
-        <a href="surroundings.html"><i class="fas fa-compass"></i> 周邊景點</a>
-    </div>
-    
-    <div class="filter-bar">
-        <button class="filter-btn active" data-area="all"><i class="fas fa-globe"></i> 全部景點</button>
-        <button class="filter-btn" data-area="marais"><i class="fas fa-landmark"></i> 瑪黑區</button>
-        <button class="filter-btn" data-area="district1"><i class="fas fa-map-marker"></i> 第1區</button>
-        <button class="filter-btn" data-area="district2"><i class="fas fa-map-marker-alt"></i> 第2區</button>
-        <button class="filter-btn" data-area="louvre"><i class="fas fa-crown"></i> 羅浮宮周邊</button>
-        <button class="filter-btn" data-area="food"><i class="fas fa-utensils"></i> 美食景點</button>
-        <button class="filter-btn" data-area="shopping"><i class="fas fa-shopping-bag"></i> 購物景點</button>
+    <div class="filter-container">
+        <button class="filter-btn active" data-category="all">
+            <i class="fas fa-globe"></i> 全部景點
+        </button>
+        <button class="filter-btn" data-category="landmark">
+            <i class="fas fa-monument"></i> 歷史建築
+        </button>
+        <button class="filter-btn" data-category="museum">
+            <i class="fas fa-palette"></i> 博物館
+        </button>
+        <button class="filter-btn" data-category="food">
+            <i class="fas fa-utensils"></i> 美食餐廳
+        </button>
     </div>
     
     <div id="map"></div>
     
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // 導航欄切換功能
-        function toggleNav() {
-            document.getElementById('navPopup').classList.toggle('show');
-        }
-        
-        // 點擊地圖時關閉導航欄
-        document.getElementById('map').addEventListener('click', () => {
-            document.getElementById('navPopup').classList.remove('show');
-        });
-        
-        // 初始化地圖
-        const map = L.map('map').setView([48.8566, 2.3522], 15);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-        
-        // 景點資料
-        const spots = [
-            {
-                name: '我的住處',
-                area: 'marais',
-                category: 'home',
-                coords: [48.8612, 2.3561],
-                description: '位於瑪黑區中心位置，步行可達主要景點',
-                time: '住宿',
-                address: '96 Rue des Archives',
-                metro: 'Arts et Métiers (3號線, 11號線)',
-                bus: 'Archives-Rambuteau (29號線), Archives-Bretagne (96號線)'
-            },
-            {
-                name: 'Place des Vosges',
-                area: 'marais',
-                category: 'landmark',
-                coords: [48.8554, 2.3671],
-                description: '巴黎最古老且最美麗的廣場之一',
-                time: '全天開放',
-                address: 'Place des Vosges, 75004'
-            },
-            {
-                name: '蘇比茲宮',
-                area: 'marais',
-                category: 'landmark',
-                coords: [48.8578, 2.3592],
-                description: '法國國家檔案館所在地',
-                time: '週一至週六 9:00-16:45',
-                address: '60 Rue des Francs-Bourgeois'
-            },
-            {
-                name: '龐畢度中心',
-                area: 'district1',
-                category: 'landmark',
-                coords: [48.8607, 2.3522],
-                description: '現代藝術博物館',
-                time: '週三至週一 11:00-21:00',
-                address: 'Place Georges-Pompidou'
-            },
-            {
-                name: 'Les Halles',
-                area: 'district1',
-                category: 'shopping',
-                coords: [48.8620, 2.3447],
-                description: '巴黎最大的地下商場之一',
-                time: '10:00-20:00',
-                address: 'Forum des Halles'
-            },
-            {
-                name: '蒙托吉伊街',
-                area: 'district2',
-                category: 'food',
-                coords: [48.8647, 2.3478],
-                description: '巴黎最著名的美食街之一',
-                time: '商店時間各異',
-                address: 'Rue Montorgueil'
-            },
-            {
-                name: '羅浮宮',
-                area: 'louvre',
-                category: 'landmark',
-                coords: [48.8606, 2.3376],
-                description: '世界最大的藝術博物館',
-                time: '週三至週一 9:00-18:00',
-                address: 'Rue de Rivoli'
-            },
-            {
-                name: '杜樂麗花園',
-                area: 'louvre',
-                category: 'landmark',
-                coords: [48.8634, 2.3275],
-                description: '巴黎最古老的公園之一',
-                time: '7:30-19:30 (冬季) / 7:30-23:00 (夏季)',
-                address: 'Place de la Concorde'
-            },
-            // 新增美食景點
-            {
-                name: 'Au Pied de Cochon',
-                area: 'district1',
-                category: 'food',
-                coords: [48.8622, 2.3447],
-                description: '24小時營業的傳統法式餐廳，以豬腳料理聞名',
-                time: '24小時營業',
-                address: '6 Rue Coquillière'
-            },
-            {
-                name: 'Stohrer 糕點店',
-                area: 'district2',
-                category: 'food',
-                coords: [48.8647, 2.3476],
-                description: '巴黎最古老的糕點店之一，創立於1730年',
-                time: '週二至週日 7:30-20:00',
-                address: '51 Rue Montorgueil'
-            },
-            // 新增購物景點
-            {
-                name: 'BHV 百貨公司',
-                area: 'marais',
-                category: 'shopping',
-                coords: [48.8570, 2.3512],
-                description: '瑪黑區最大的百貨公司，從時尚服飾到家居用品應有盡有',
-                time: '週一至週六 9:30-20:00',
-                address: '52 Rue de Rivoli'
-            },
-            {
-                name: 'Merci Concept Store',
-                area: 'marais',
-                category: 'shopping',
-                coords: [48.8605, 2.3602],
-                description: '時尚前衛的概念店，位於一座舊工廠中',
-                time: '週一至週六 10:00-19:00',
-                address: '111 Boulevard Beaumarchais'
-            }
-        ];
-        
-        // 創建圖標
-        const markers = new Map();
-        
-        function getMarkerIcon(category) {
-            const colors = {
-                landmark: 'blue',
-                food: 'orange',
-                shopping: 'green',
-                home: 'red'
-            };
-            return L.icon({
-                iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${colors[category]}.png`,
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
-            });
-        }
-        
-        function createMarker(spot) {
-            const marker = L.marker(spot.coords, { icon: getMarkerIcon(spot.category) })
-                .bindPopup(`
-                    <div class="map-popup">
-                        <span class="category">
-                            <i class="${spot.category === 'landmark' ? 'fas fa-landmark' : 
-                                      spot.category === 'food' ? 'fas fa-utensils' : 
-                                      spot.category === 'shopping' ? 'fas fa-shopping-bag' :
-                                      'fas fa-home'}"></i>
-                            ${spot.category === 'landmark' ? '景點' : 
-                              spot.category === 'food' ? '美食' : 
-                              spot.category === 'shopping' ? '購物' :
-                              '住處'}
-                        </span>
-                        <h3>${spot.name}</h3>
-                        <p>${spot.description}</p>
-                        <div class="meta">
-                            <span><i class="fas fa-clock"></i> ${spot.time}</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ${spot.address}</span>
-                            ${spot.metro ? `<span><i class="fas fa-subway"></i> ${spot.metro}</span>` : ''}
-                            ${spot.bus ? `<span><i class="fas fa-bus"></i> ${spot.bus}</span>` : ''}
-                        </div>
-                    </div>
-                `);
-            
-            // 將標記加入對應的區域和類別集合
-            markers.set(spot.area, [...(markers.get(spot.area) || []), marker]);
-            markers.set(spot.category, [...(markers.get(spot.category) || []), marker]);
-            
-            // 如果是住處，設置為初始彈出
-            if (spot.category === 'home') {
-                setTimeout(() => marker.openPopup(), 1000);
-            }
-            
-            return marker;
-        }
-        
-        // 初始化所有標記
-        spots.forEach(spot => createMarker(spot).addTo(map));
-        
-        // 篩選功能
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // 更新按鈕狀態
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const selectedArea = btn.dataset.area;
-                
-                // 清除所有標記
-                markers.forEach(markerGroup => {
-                    markerGroup.forEach(marker => marker.remove());
-                });
-                
-                // 添加選中區域或類別的標記
-                if (selectedArea === 'all') {
-                    spots.forEach(spot => createMarker(spot).addTo(map));
-                } else if (selectedArea === 'food' || selectedArea === 'shopping') {
-                    spots.filter(spot => spot.category === selectedArea)
-                        .forEach(spot => createMarker(spot).addTo(map));
-                } else {
-                    spots.filter(spot => spot.area === selectedArea)
-                        .forEach(spot => createMarker(spot).addTo(map));
-                }
-            });
-        });
-    </script>
+    <script src="map.js"></script>
 </body>
 </html> 

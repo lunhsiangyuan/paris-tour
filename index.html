@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>巴黎瑪黑區導覽 | Paris Le Marais Guide</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -189,21 +189,146 @@
         }
         
         @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
             header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            
+            nav {
+                margin-top: 0.5rem;
             }
             
             nav ul {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
             }
             
             nav li {
-                margin: 0.5rem 0;
+                margin: 0;
+                width: calc(50% - 0.5rem);
+            }
+            
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            nav a i {
+                margin-right: 0.5rem;
             }
             
             #intro {
-                min-height: 200px;
+                min-height: 150px;
+                padding: 1.5rem;
+            }
+            
+            #intro p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            section {
+                margin-bottom: 1.5rem;
+                border-radius: 8px;
+            }
+            
+            section h2 {
+                padding: 1rem;
+                font-size: 1.2rem;
+            }
+            
+            .guide-content {
+                padding: 1.5rem;
+            }
+            
+            .guide-content p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .guide-link {
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+            
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            /* 自動展開動畫 */
+            section {
+                animation: fadeInUp 0.5s ease-out forwards;
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* 延遲動畫 */
+            section:nth-child(1) { animation-delay: 0.1s; }
+            section:nth-child(2) { animation-delay: 0.2s; }
+            section:nth-child(3) { animation-delay: 0.3s; }
+            section:nth-child(4) { animation-delay: 0.4s; }
+        }
+        
+        /* 深色模式支援 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #f0f0f0;
+            }
+            
+            section {
+                background: #2d2d2d;
+            }
+            
+            section h2 {
+                background: #333;
+                color: #fff;
+            }
+            
+            .guide-link {
+                background: var(--primary-color);
+            }
+            
+            .guide-link:hover {
+                background: #2980b9;
+            }
+        }
+        
+        /* 觸控優化 */
+        @media (hover: none) {
+            nav a, .guide-link {
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            nav a:active, .guide-link:active {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0.98);
             }
         }
     </style>
@@ -256,5 +381,25 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 自動展開功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html> 

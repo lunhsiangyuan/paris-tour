@@ -2,8 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>瑪黑區導覽 | Le Marais Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>瑪黑區深度導覽 | Le Marais Guide</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,310 +13,300 @@
             --accent-color: #e74c3c;
             --light-color: #ecf0f1;
             --dark-color: #34495e;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
             color: var(--dark-color);
             background-color: #f8f9fa;
-            line-height: 1.6;
         }
-        
+
         header {
             background: linear-gradient(to right, var(--primary-color), #2980b9);
             color: white;
             padding: 2rem 1rem;
             text-align: center;
-            box-shadow: var(--shadow);
+            position: relative;
         }
-        
-        header h1 {
-            margin-bottom: 1rem;
-            font-weight: 700;
-            font-size: 2.2rem;
-        }
-        
-        .navbar {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .navbar a {
+
+        .back-button {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background 0.3s;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        
-        .navbar a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .navbar i {
-            margin-right: 8px;
-        }
-        
+
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 1rem;
         }
-        
-        .section {
-            background: white;
-            margin-bottom: 2rem;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-        
-        .section-header {
-            background: var(--secondary-color);
-            color: white;
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-header h2 {
-            margin: 0;
-            font-weight: 700;
-        }
-        
-        .section-header i {
-            margin-right: 0.8rem;
-            font-size: 1.5rem;
-        }
-        
-        .section-content {
-            padding: 1.5rem;
-        }
-        
-        .spot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
+
         .spot-card {
-            background: var(--light-color);
-            border-radius: 10px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 2rem;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
         }
-        
-        .spot-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .spot-img {
+
+        .spot-image {
+            width: 100%;
             height: 200px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
+            object-fit: cover;
         }
-        
+
         .spot-content {
             padding: 1.5rem;
         }
-        
-        .spot-content h3 {
+
+        .spot-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--secondary-color);
+        }
+
+        .spot-info {
+            display: grid;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
-        
-        .spot-content p {
-            margin-bottom: 1rem;
-            color: #666;
-        }
-        
-        .spot-meta {
+
+        .spot-info span {
             display: flex;
-            justify-content: space-between;
-            color: #999;
-            font-size: 0.9rem;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .spot-meta i {
-            color: var(--primary-color);
-            margin-right: 0.5rem;
+
+        .spot-description {
+            line-height: 1.8;
+            margin-bottom: 1rem;
         }
-        
-        .category-tag {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #f1c40f;
         }
-        
-        footer {
-            background: var(--secondary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 2rem;
-        }
-        
+
         @media (max-width: 768px) {
-            .spot-grid {
-                grid-template-columns: 1fr;
+            header {
+                padding: 1rem;
             }
-            
-            header h1 {
-                font-size: 1.8rem;
+
+            h1 {
+                font-size: 1.5rem;
+                margin-left: 3rem;
             }
+
+            .spot-card {
+                margin-bottom: 1rem;
+            }
+
+            .spot-image {
+                height: 150px;
+            }
+
+            .spot-title {
+                font-size: 1.2rem;
+            }
+
+            .spot-content {
+                padding: 1rem;
+            }
+
+            .spot-info {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #f0f0f0;
+            }
+
+            .spot-card {
+                background: #2d2d2d;
+            }
+
+            .spot-title {
+                color: #fff;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-map-marked-alt"></i> 瑪黑區導覽</h1>
-        <p>探索巴黎最具魅力的歷史街區</p>
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>返回</span>
+        </a>
+        <h1>瑪黑區深度導覽 | Le Marais Guide</h1>
     </header>
-    
-    <div class="navbar">
-        <a href="index.html"><i class="fas fa-home"></i> 返回首頁</a>
-        <a href="map.html"><i class="fas fa-map"></i> 查看互動地圖</a>
-    </div>
-    
+
     <main>
-        <section class="section">
-            <div class="section-header">
-                <i class="fas fa-landmark"></i>
-                <h2>歷史建築</h2>
-            </div>
-            <div class="section-content">
-                <div class="spot-grid">
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Place_des_Vosges_140605_1.jpg/1920px-Place_des_Vosges_140605_1.jpg')">
-                            <span class="category-tag"><i class="fas fa-landmark"></i> 廣場</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>Place des Vosges</h3>
-                            <p>巴黎最古老且最美麗的廣場之一，建於1605年。四周環繞著紅磚建築，中央有優美的噴泉和花園。維克多·雨果故居博物館就位於廣場一角。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 全天開放</span>
-                                <span><i class="fas fa-map-marker-alt"></i> Place des Vosges, 75004</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Archives_Nationales_-_Hotel_de_Soubise_2.jpg/1280px-Archives_Nationales_-_Hotel_de_Soubise_2.jpg')">
-                            <span class="category-tag"><i class="fas fa-landmark"></i> 宮殿</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>蘇比茲宮</h3>
-                            <p>法國國家檔案館所在地，18世紀洛可可風格建築的代表作。內部裝飾華麗，花園優美，是瑪黑區最重要的歷史建築之一。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 週一至週六 9:00-16:45</span>
-                                <span><i class="fas fa-map-marker-alt"></i> 60 Rue des Francs-Bourgeois</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="spot-card">
+            <img src="https://images.unsplash.com/photo-1549144511-f099e773c147" alt="Place des Vosges" class="spot-image">
+            <div class="spot-content">
+                <h2 class="spot-title">Place des Vosges 沃日廣場</h2>
+                <div class="spot-info">
+                    <span><i class="fas fa-map-marker-alt"></i> Place des Vosges, 75004</span>
+                    <span><i class="fas fa-clock"></i> 全天開放</span>
+                    <span><i class="fas fa-subway"></i> 地鐵：Saint-Paul (1號線)</span>
                 </div>
+                <p class="spot-description">巴黎最古老的計劃廣場，建於1605年，是典型的亨利四世時期建築風格。廣場四周環繞著紅磚建築，中央是綠意盎然的公園。維克多·雨果故居博物館就位於廣場北側。</p>
             </div>
-        </section>
+        </div>
+
+        <div class="spot-card">
+            <img src="https://images.unsplash.com/photo-1578305698944-874fa44d04c9" alt="Musée Carnavalet">
+            <div class="spot-info">
+                <h3>卡納瓦萊博物館 Musée Carnavalet</h3>
+                <div class="spot-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> 23 Rue de Sévigné, 75003</span>
+                    <span><i class="fas fa-clock"></i> 週二-週日 10:00-18:00</span>
+                </div>
+                <p>巴黎歷史博物館，位於兩座歷史建築中，展示從史前時期到現代的巴黎發展史。2021年重新開放後，展示更加現代化和互動性強。</p>
+            </div>
+        </div>
+
+        <h2 class="category-title"><i class="fas fa-utensils"></i> 精選美食</h2>
         
-        <section class="section">
-            <div class="section-header">
-                <i class="fas fa-palette"></i>
-                <h2>博物館與藝術</h2>
-            </div>
-            <div class="section-content">
-                <div class="spot-grid">
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Mus%C3%A9e_Carnavalet-Fa%C3%A7ade_sur_cour-20110515.jpg/1920px-Mus%C3%A9e_Carnavalet-Fa%C3%A7ade_sur_cour-20110515.jpg')">
-                            <span class="category-tag"><i class="fas fa-palette"></i> 博物館</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>卡納瓦萊博物館</h3>
-                            <p>巴黎歷史博物館，展示從古至今的巴黎發展史。2021年重新開放後，以更現代化的方式呈現巴黎的歷史文化。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 週二至週日 10:00-18:00</span>
-                                <span><i class="fas fa-map-marker-alt"></i> 23 Rue de Sévigné</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Mus%C3%A9e_Picasso%2C_H%C3%B4tel_Sal%C3%A9%2C_Paris_3e_140402.jpg/1920px-Mus%C3%A9e_Picasso%2C_H%C3%B4tel_Sal%C3%A9%2C_Paris_3e_140402.jpg')">
-                            <span class="category-tag"><i class="fas fa-palette"></i> 博物館</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>畢卡索博物館</h3>
-                            <p>位於薩爾坦宮內，收藏超過5000件畢卡索作品。建築本身是17世紀的建築傑作，內部展示豐富的畢卡索藝術作品。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 週二至週日 10:30-18:00</span>
-                                <span><i class="fas fa-map-marker-alt"></i> 5 Rue de Thorigny</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="spot-card">
+            <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e" alt="L'As du Fallafel">
+            <div class="spot-info">
+                <h3>L'As du Fallafel</h3>
+                <div class="spot-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> 34 Rue des Rosiers, 75004</span>
+                    <span><i class="fas fa-clock"></i> 週日-週五 11:00-23:00</span>
+                    <span><i class="fas fa-star"></i> 4.5/5</span>
                 </div>
+                <p>瑪黑區最著名的猶太餐廳之一，以其美味的沙拉三明治和炸豆丸聞名。即使排隊也值得一試！</p>
             </div>
-        </section>
-        
-        <section class="section">
-            <div class="section-header">
-                <i class="fas fa-utensils"></i>
-                <h2>美食與購物</h2>
-            </div>
-            <div class="section-content">
-                <div class="spot-grid">
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rue_des_Rosiers%2C_Paris_August_2013.jpg/1280px-Rue_des_Rosiers%2C_Paris_August_2013.jpg')">
-                            <span class="category-tag"><i class="fas fa-utensils"></i> 美食街</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>玫瑰街 (Rue des Rosiers)</h3>
-                            <p>巴黎猶太區的中心，以美食聞名。這裡有著名的沙威瑪店L'As du Fallafel，以及眾多猶太餐廳和精品店。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 商店時間各異</span>
-                                <span><i class="fas fa-map-marker-alt"></i> Rue des Rosiers</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="spot-card">
-                        <div class="spot-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/March%C3%A9_des_Enfants_Rouges%2C_Paris_10_August_2013.jpg/1280px-March%C3%A9_des_Enfants_Rouges%2C_Paris_10_August_2013.jpg')">
-                            <span class="category-tag"><i class="fas fa-store"></i> 市場</span>
-                        </div>
-                        <div class="spot-content">
-                            <h3>紅孩子市場</h3>
-                            <p>巴黎最古老的有蓋市場，建於1628年。這裡有各國美食攤位，從摩洛哥到日本料理應有盡有，是品嚐美食的絕佳去處。</p>
-                            <div class="spot-meta">
-                                <span><i class="fas fa-clock"></i> 週二至週日 8:30-19:30</span>
-                                <span><i class="fas fa-map-marker-alt"></i> 39 Rue de Bretagne</span>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+
+        <div class="spot-card">
+            <img src="https://images.unsplash.com/photo-1600803907087-f56d462fd52f" alt="Chez Janou">
+            <div class="spot-info">
+                <h3>Chez Janou</h3>
+                <div class="spot-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> 2 Rue Roger Verlomme, 75003</span>
+                    <span><i class="fas fa-clock"></i> 每日 12:00-15:00, 19:00-23:00</span>
+                    <span><i class="fas fa-star"></i> 4.4/5</span>
                 </div>
+                <p>充滿普羅旺斯風情的餐廳，以其美味的地中海料理和超過80種巧克力慕斯聞名。建議預約！</p>
             </div>
-        </section>
+        </div>
+
+        <div class="spot-card">
+            <img src="https://images.unsplash.com/photo-1600803907087-f56d462fd52f" alt="Breizh Café">
+            <div class="spot-info">
+                <h3>Breizh Café</h3>
+                <div class="spot-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> 109 Rue Vieille du Temple, 75003</span>
+                    <span><i class="fas fa-clock"></i> 週二-週日 11:30-23:00</span>
+                    <span><i class="fas fa-star"></i> 4.6/5</span>
+                </div>
+                <p>巴黎最好的可麗餅店之一，使用高品質的布列塔尼原料。甜鹹可麗餅都非常美味，配上蘋果酒是完美搭配。</p>
+            </div>
+        </div>
     </main>
-    
-    <footer>
-        <p>© 2024 巴黎瑪黑區導覽 | 資料更新時間：2024/03/28</p>
-        <p><i class="fas fa-code"></i> 使用 HTML 和 CSS 打造</p>
-    </footer>
+
+    <a href="#" id="back-to-top" class="hidden">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // 自動展開功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.spot-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // 回到頂部按鈕
+            const backToTop = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html> 
