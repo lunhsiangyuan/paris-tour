@@ -1,30 +1,30 @@
-# 🌐 網路搜尋與 AI 分析 Agent
+# 🌍 旅遊景點查詢與周邊介紹 Agent
 
 ## 🎯 工作目標
-這個 Agent 專門負責**搜尋網路資料**，然後使用 **GPT-5 LLM** 進行深度思考和分析，最終產生專業的 **HTML 格式報告**。特別專精於**前列腺癌研究**、**PHI (Prostate Health Index)** 相關文獻分析和**醫療科技趨勢**研究。
+這個 Agent 專門負責**搜尋旅遊景點資料**，然後使用 **GPT-5 LLM** 進行深度思考和分析，最終產生專業的 **HTML 格式報告**。特別專精於**旅遊景點介紹**、**周邊景點推薦**、**交通資訊**和**旅遊攻略**研究。
 
 ## 🔍 核心功能
 
 ### 1. 網路資料搜尋
-- **多源搜尋**: 搜尋引擎、學術資料庫、新聞網站
-- **即時資訊**: 獲取最新的研究結果、新聞報導、技術發展
-- **深度爬取**: 提取完整的網頁內容和結構化資料
-- **多語言支援**: 中文、英文等多語言資料來源
-- **專業文獻**: 專注於 PubMed、Google Scholar 等學術資料庫
+- **多源搜尋**: 搜尋引擎、旅遊網站、官方景點網站
+- **即時資訊**: 獲取最新的景點資訊、開放時間、票價資訊
+- **深度爬取**: 提取完整的景點介紹、交通資訊、周邊設施
+- **多語言支援**: 中文、英文等多語言旅遊資料來源
+- **旅遊平台**: 專注於 TripAdvisor、Google Maps、官方旅遊網站等
 
 ### 2. GPT-5 LLM 分析
 - **深度思考**: 利用 GPT-5 的推理能力進行複雜分析
 - **多角度視角**: 從不同角度審視搜尋結果
 - **批判性思維**: 評估資料可信度和偏見
 - **洞察生成**: 產生深層次的見解和建議
-- **醫學專業**: 特別針對醫療研究進行專業分析
+- **旅遊專業**: 特別針對旅遊景點進行專業分析
 
 ### 3. HTML 報告產生
 - **現代化設計**: 響應式、美觀的網頁格式
 - **結構化內容**: 清晰的章節組織和導航
-- **視覺化元素**: 圖表、圖像、互動式元素
+- **視覺化元素**: 地圖、景點圖片、互動式元素
 - **專業呈現**: 適合分享和展示的格式
-- **醫學報告**: 專為醫療研究設計的報告格式
+- **旅遊報告**: 專為旅遊景點介紹設計的報告格式
 
 ## 🛠️ 技術架構
 
@@ -272,64 +272,64 @@ def generate_html_report(analysis_result, metadata):
 
 ### 基本指令
 ```bash
-# 執行網路搜尋和分析
-python3 browser/web_search_agent.py --topic "PSA screening guidelines" --output reports/
+# 執行景點搜尋和分析
+python3 browser/web_search_agent.py --topic "巴黎鐵塔" --output reports/
 
 # 指定搜尋深度
-python3 browser/web_search_agent.py --topic "prostate cancer treatment" --depth comprehensive
+python3 browser/web_search_agent.py --topic "羅浮宮" --depth comprehensive
 
 # 自定義分析角度
-python3 browser/web_search_agent.py --topic "AI in healthcare" --perspective clinical
+python3 browser/web_search_agent.py --topic "巴黎聖母院" --perspective cultural
 ```
 
 ### 進階選項
 ```bash
 # 多語言搜尋
-python3 browser/web_search_agent.py --topic "前列腺癌篩檢" --languages zh-tw,en
+python3 browser/web_search_agent.py --topic "巴黎景點" --languages zh-tw,en
 
 # 時間範圍限制
-python3 browser/web_search_agent.py --topic "COVID-19 treatment" --date-range "2024-01-01,2024-12-31"
+python3 browser/web_search_agent.py --topic "巴黎旅遊" --date-range "2024-01-01,2024-12-31"
 
 # 特定來源
-python3 browser/web_search_agent.py --topic "medical research" --sources pubmed,scholar
+python3 browser/web_search_agent.py --topic "巴黎美食" --sources tripadvisor,google-maps
 ```
 
 ## 📊 分析類型
 
-### 1. 前列腺癌研究分析
-- **PHI 研究**: Prostate Health Index 相關最新研究
-- **PHID 分析**: PHI Density 診斷效能分析
-- **PI-RADS 整合**: 與 MRI 影像檢查的結合應用
-- **臨床指南**: 前列腺癌篩檢和診斷指南更新
-- **台灣研究**: 本土化研究結果和臨床應用
+### 1. 景點詳細介紹
+- **歷史背景**: 景點的歷史沿革和文化背景
+- **建築特色**: 建築風格、設計理念和藝術價值
+- **開放資訊**: 開放時間、票價、參觀須知
+- **最佳參觀時間**: 季節性推薦和最佳參觀時段
+- **參觀路線**: 推薦的參觀路線和重點區域
 
-### 2. 醫療研究分析
-- **最新研究**: 搜尋最新的醫學研究論文
-- **臨床指南**: 分析最新的臨床實踐指南
-- **藥物資訊**: 收集藥物治療相關資訊
-- **副作用**: 分析藥物副作用和安全資訊
-- **文獻綜述**: 系統性文獻回顧和 Meta 分析
+### 2. 周邊景點推薦
+- **鄰近景點**: 步行可達的周邊景點
+- **交通便利**: 公共交通和步行路線規劃
+- **一日遊路線**: 完整的周邊一日遊建議
+- **主題路線**: 文化、美食、購物等主題路線
+- **深度探索**: 當地人推薦的隱藏景點
 
-### 3. 技術趨勢分析
-- **AI 發展**: 人工智慧在醫療領域的應用
-- **新技術**: 醫療技術創新和突破
-- **數位健康**: 數位化醫療解決方案
-- **遠程醫療**: 遠程醫療技術發展
-- **精準醫療**: 個人化醫療和基因檢測
+### 3. 交通資訊分析
+- **大眾運輸**: 地鐵、公車、火車等交通方式
+- **自駕路線**: 開車路線和停車資訊
+- **步行路線**: 步行距離和時間估算
+- **交通費用**: 各種交通方式的費用比較
+- **交通時間**: 不同時段的交通狀況分析
 
-### 4. 市場分析
-- **產業動態**: 醫療產業發展趨勢
-- **投資機會**: 醫療科技投資分析
-- **競爭環境**: 市場競爭格局分析
-- **政策影響**: 政策對產業的影響
-- **成本效益**: 醫療技術的成本效益分析
+### 4. 旅遊攻略分析
+- **最佳季節**: 不同季節的旅遊特色和注意事項
+- **天氣資訊**: 當地氣候和天氣預報
+- **穿著建議**: 適合的服裝和裝備建議
+- **預算規劃**: 住宿、餐飲、交通費用估算
+- **時間安排**: 建議的參觀時間和行程規劃
 
-### 5. 新聞事件分析
-- **突發事件**: 醫療相關突發事件分析
-- **政策變化**: 醫療政策變化影響
-- **重大發現**: 醫學重大發現和突破
-- **公共衛生**: 公共衛生事件分析
-- **學術會議**: 重要醫學會議和研究發表
+### 5. 實用資訊分析
+- **住宿推薦**: 周邊住宿選擇和價格範圍
+- **美食推薦**: 當地特色美食和餐廳推薦
+- **購物資訊**: 紀念品和特色商品購買地點
+- **語言服務**: 多語言服務和溝通建議
+- **安全注意**: 旅遊安全注意事項和緊急聯絡
 
 ## 🔧 技術需求
 
@@ -453,57 +453,57 @@ export BING_SEARCH_API_KEY="your-bing-api-key"
 
 ## 🎯 使用範例
 
-### 範例 1: PHI 研究文獻分析
+### 範例 1: 巴黎鐵塔詳細介紹
 ```bash
 python3 browser/web_search_agent.py \
-    --topic "Prostate Health Index PHI research 2020-2025" \
+    --topic "巴黎鐵塔 Eiffel Tower 介紹" \
     --depth comprehensive \
-    --output reports/phi_research_analysis.html \
-    --analysis-type clinical
+    --output reports/eiffel_tower_analysis.html \
+    --analysis-type cultural
 ```
 
-### 範例 2: PHID 診斷效能分析
+### 範例 2: 羅浮宮周邊景點分析
 ```bash
 python3 browser/web_search_agent.py \
-    --topic "PHI density PHID diagnostic performance" \
-    --languages en,zh-tw \
-    --date-range "2020-01-01,2025-12-31" \
-    --output reports/phid_diagnostic_analysis.html
-```
-
-### 範例 3: 台灣前列腺癌研究趨勢
-```bash
-python3 browser/web_search_agent.py \
-    --topic "Taiwan prostate cancer research PHI" \
-    --sources pubmed,scholar,medical-news \
-    --perspective research \
-    --output reports/taiwan_prostate_research.html
-```
-
-### 範例 4: PI-RADS 與 PHI 整合應用
-```bash
-python3 browser/web_search_agent.py \
-    --topic "PI-RADS PHI combination prostate cancer diagnosis" \
-    --depth expert \
-    --output reports/pirads_phi_integration.html
-```
-
-### 範例 5: 前列腺癌篩檢指南更新
-```bash
-python3 browser/web_search_agent.py \
-    --topic "prostate cancer screening guidelines 2024" \
+    --topic "羅浮宮周邊景點 Louvre Museum surroundings" \
     --languages en,zh-tw \
     --date-range "2024-01-01,2024-12-31" \
-    --output reports/prostate_screening_guidelines.html
+    --output reports/louvre_surroundings_analysis.html
+```
+
+### 範例 3: 巴黎瑪黑區旅遊攻略
+```bash
+python3 browser/web_search_agent.py \
+    --topic "巴黎瑪黑區 Le Marais 旅遊攻略" \
+    --sources tripadvisor,google-maps,official-tourism \
+    --perspective travel \
+    --output reports/le_marais_travel_guide.html
+```
+
+### 範例 4: 巴黎美食與餐廳推薦
+```bash
+python3 browser/web_search_agent.py \
+    --topic "巴黎美食推薦 Paris food recommendations" \
+    --depth expert \
+    --output reports/paris_food_guide.html
+```
+
+### 範例 5: 巴黎交通與住宿資訊
+```bash
+python3 browser/web_search_agent.py \
+    --topic "巴黎交通住宿 Paris transportation accommodation" \
+    --languages en,zh-tw \
+    --date-range "2024-01-01,2024-12-31" \
+    --output reports/paris_transportation_guide.html
 ```
 
 ## 🔍 品質控制
 
 ### 資料驗證
-- **來源可信度**: 檢查資料來源的權威性
-- **時間新鮮度**: 確保資料的時效性
-- **內容完整性**: 驗證資料的完整性
-- **偏見檢測**: 識別潛在的偏見和立場
+- **來源可信度**: 檢查旅遊網站和官方資料的權威性
+- **時間新鮮度**: 確保景點資訊的時效性
+- **內容完整性**: 驗證景點介紹的完整性
+- **偏見檢測**: 識別潛在的商業偏見和立場
 
 ### 分析品質
 - **邏輯一致性**: 確保分析邏輯的一致性
@@ -520,30 +520,30 @@ python3 browser/web_search_agent.py \
 ## 📁 現有檔案說明
 
 ### 核心檔案
-- **`web_search_agent.py`**: 主要的網路搜尋與分析 Agent 程式
+- **`web_search_agent.py`**: 主要的旅遊景點搜尋與分析 Agent 程式
 - **`agents.md`**: 本說明文件，詳細描述 Agent 功能和使用方式
-- **`PHI_papers_2020-2025.md`**: PHI 相關研究論文摘要 (2020-2025)
-- **`PHI_papers_2020-2025.html`**: PHI 研究論文的 HTML 格式報告
-- **`PHI_prostate_report.html`**: 台灣前列腺癌研究綜合報告
+- **`paris_attractions.md`**: 巴黎景點相關資料摘要
+- **`paris_attractions.html`**: 巴黎景點的 HTML 格式報告
+- **`paris_travel_guide.html`**: 巴黎旅遊綜合攻略報告
 
 ### 資料夾結構
 ```
 browser/
 ├── web_search_agent.py          # 主要 Agent 程式
 ├── agents.md                    # 功能說明文件
-├── PHI_papers_2020-2025.md     # PHI 論文摘要
-├── PHI_papers_2020-2025.html   # PHI 論文 HTML 報告
-├── PHI_prostate_report.html    # 台灣前列腺癌研究報告
-└── 20250922papers/             # 論文 PDF 檔案資料夾
-    └── [35 個 PDF 檔案]
+├── paris_attractions.md         # 巴黎景點摘要
+├── paris_attractions.html       # 巴黎景點 HTML 報告
+├── paris_travel_guide.html      # 巴黎旅遊攻略報告
+└── travel_resources/            # 旅遊資源檔案資料夾
+    └── [景點圖片、地圖、交通資訊等]
 ```
 
 ### 特色功能
-- **PHI 專精**: 專門針對 Prostate Health Index 相關研究
-- **台灣研究**: 特別關注台灣本土化研究結果
-- **文獻分析**: 系統性分析 2020-2025 年的最新研究
+- **旅遊專精**: 專門針對旅遊景點和周邊介紹
+- **巴黎研究**: 特別關注巴黎地區的景點和旅遊資訊
+- **景點分析**: 系統性分析景點的歷史、文化、交通等資訊
 - **HTML 報告**: 產生美觀的網頁格式報告
-- **多語言支援**: 支援中英文文獻搜尋和分析
+- **多語言支援**: 支援中英文旅遊資訊搜尋和分析
 
 ---
 
@@ -558,9 +558,9 @@ browser/
 
 ### 快速開始
 ```bash
-# 分析 PHI 相關最新研究
-python3 browser/web_search_agent.py --topic "PHI prostate cancer 2024"
+# 分析巴黎鐵塔相關資訊
+python3 browser/web_search_agent.py --topic "巴黎鐵塔 Eiffel Tower 2024"
 
-# 產生台灣前列腺癌研究報告
-python3 browser/web_search_agent.py --topic "Taiwan prostate cancer research"
+# 產生巴黎旅遊攻略報告
+python3 browser/web_search_agent.py --topic "巴黎旅遊 Paris travel guide"
 ```

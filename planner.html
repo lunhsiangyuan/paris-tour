@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧旅遊規畫中心 | Travel Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/planner.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="branding">
+                <h1>智慧旅遊規畫中心</h1>
+                <p>輸入目的地與住宿地址，立即探索專屬旅程景點</p>
+            </div>
+            <nav class="nav">
+                <a href="index.html">瑪黑區導覽</a>
+                <a href="portal.html">旅遊入口</a>
+                <a href="planner.html" class="active">旅遊規畫</a>
+            </nav>
+        </header>
+        <main class="main">
+            <section class="form-section">
+                <form id="planner-form" novalidate>
+                    <div class="field">
+                        <label for="destination">目的地</label>
+                        <input type="text" id="destination" name="destination" placeholder="例：Paris 或 東京" required>
+                    </div>
+                    <div class="field">
+                        <label for="lodging">住宿地址</label>
+                        <input type="text" id="lodging" name="lodging_address" placeholder="例：96 Rue des Archives, Paris" required>
+                    </div>
+                    <div class="field-group">
+                        <div class="field">
+                            <label for="start-date">出發日期</label>
+                            <input type="date" id="start-date" name="start_date">
+                        </div>
+                        <div class="field">
+                            <label for="end-date">返回日期</label>
+                            <input type="date" id="end-date" name="end_date">
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn-primary">生成旅遊計畫</button>
+                        <button type="reset" class="btn-secondary" id="reset-btn">清除</button>
+                    </div>
+                    <p class="status" id="status-message">請輸入旅程資訊開始規畫。</p>
+                </form>
+                <div class="downloads" id="download-links" hidden>
+                    <h3>匯出選項</h3>
+                    <a id="download-json" href="#" download rel="noopener">下載 JSON</a>
+                    <a id="download-csv" href="#" download rel="noopener">下載 CSV</a>
+                </div>
+            </section>
+            <section class="result-section">
+                <aside class="directory" aria-label="景點主目錄">
+                    <h2>景點主目錄</h2>
+                    <div class="directory-list" id="directory-list">
+                        <p>尚未載入資料。</p>
+                    </div>
+                </aside>
+                <div class="map-panel">
+                    <h2>互動地圖</h2>
+                    <div id="map" role="region" aria-label="景點地圖"></div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 智慧旅遊規畫中心 · Powered by browser_agents + Google Maps</p>
+        </footer>
+    </div>
+    <script type="module" src="assets/js/planner.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initPlannerMap&libraries=places"></script>
+</body>
+</html>
