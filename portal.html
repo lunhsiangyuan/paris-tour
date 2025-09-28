@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>城市導覽 Portal | City Tour Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--dark-color);
+            background: var(--gradient);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .portal-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .portal-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .portal-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .portal-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-section h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .attraction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .attraction-item:hover {
+            border-color: var(--primary-color);
+            background: white;
+        }
+        
+        .attraction-item input {
+            flex: 1;
+            margin: 0;
+        }
+        
+        .remove-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .add-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .add-btn:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .feature-card h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .portal-header h1 {
+                font-size: 2rem;
+            }
+            
+            .portal-card {
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+            
+            .attraction-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .remove-btn {
+                align-self: flex-end;
+                margin-top: 0.5rem;
+            }
+            
+            .back-link {
+                position: static;
+                display: inline-block;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> 返回首頁
+    </a>
+    
+    <div class="container">
+        <div class="portal-header">
+            <h1><i class="fas fa-globe-americas"></i> 城市導覽 Portal</h1>
+            <p>建立您專屬的城市導覽體驗！輸入您想探索的城市、景點和住宿資訊，我們將為您打造個人化的旅遊指南。</p>
+        </div>
+        
+        <div class="portal-card">
+            <form id="cityForm">
+                <div class="form-section">
+                    <h3><i class="fas fa-city"></i> 城市資訊</h3>
+                    <div class="form-group">
+                        <label for="cityName">城市名稱 *</label>
+                        <input type="text" id="cityName" name="cityName" placeholder="例如：東京、倫敦、紐約..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">國家/地區</label>
+                        <input type="text" id="country" name="country" placeholder="例如：日本、英國、美國...">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> 住宿資訊</h3>
+                    <div class="form-group">
+                        <label for="accommodation">住宿地點</label>
+                        <input type="text" id="accommodation" name="accommodation" placeholder="例如：新宿站附近、倫敦市中心...">
+                    </div>
+                    <div class="form-group">
+                        <label for="accommodationNotes">住宿備註</label>
+                        <textarea id="accommodationNotes" name="accommodationNotes" placeholder="住宿相關的額外資訊，如交通便利性、周邊設施等..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-camera"></i> 想探索的景點</h3>
+                    <div id="attractionsList">
+                        <div class="attraction-item">
+                            <input type="text" name="attractions[]" placeholder="輸入景點名稱..." required>
+                            <button type="button" class="remove-btn" onclick="removeAttraction(this)" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addAttraction()">
+                        <i class="fas fa-plus"></i> 新增景點
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-sticky-note"></i> 其他需求</h3>
+                    <div class="form-group">
+                        <label for="specialRequests">特殊需求或偏好</label>
+                        <textarea id="specialRequests" name="specialRequests" placeholder="例如：偏好美食、文化景點、購物、自然風光等..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-magic"></i> 建立我的導覽
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-map-marked-alt"></i>
+                <h4>個人化地圖</h4>
+                <p>根據您的景點建立專屬互動地圖</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-route"></i>
+                <h4>路線規劃</h4>
+                <p>智能規劃最佳遊覽路線</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-utensils"></i>
+                <h4>美食推薦</h4>
+                <p>推薦當地特色美食與餐廳</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let attractionCount = 1;
+        
+        function addAttraction() {
+            const attractionsList = document.getElementById('attractionsList');
+            const newAttraction = document.createElement('div');
+            newAttraction.className = 'attraction-item';
+            newAttraction.innerHTML = `
+                <input type="text" name="attractions[]" placeholder="輸入景點名稱..." required>
+                <button type="button" class="remove-btn" onclick="removeAttraction(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            attractionsList.appendChild(newAttraction);
+            attractionCount++;
+            updateRemoveButtons();
+        }
+        
+        function removeAttraction(button) {
+            const attractionItem = button.parentElement;
+            attractionItem.remove();
+            attractionCount--;
+            updateRemoveButtons();
+        }
+        
+        function updateRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach((btn, index) => {
+                if (removeButtons.length === 1) {
+                    btn.style.display = 'none';
+                } else {
+                    btn.style.display = 'flex';
+                }
+            });
+        }
+        
+        document.getElementById('cityForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // 收集所有景點
+            const attractions = formData.getAll('attractions[]').filter(attraction => attraction.trim() !== '');
+            
+            if (attractions.length === 0) {
+                alert('請至少輸入一個景點！');
+                return;
+            }
+            
+            // 儲存到 localStorage
+            const tourData = {
+                city: data.cityName,
+                country: data.country,
+                accommodation: data.accommodation,
+                accommodationNotes: data.accommodationNotes,
+                attractions: attractions,
+                specialRequests: data.specialRequests,
+                createdAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('customTourData', JSON.stringify(tourData));
+            
+            // 顯示成功訊息
+            alert(`已成功建立 ${data.cityName} 的導覽資料！\n\n包含 ${attractions.length} 個景點：\n${attractions.join('\n')}\n\n即將跳轉到導覽頁面...`);
+            
+            // 跳轉到導覽頁面
+            window.location.href = 'index.html';
+        });
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRemoveButtons();
+        });
+    </script>
+</body>
+</html>
